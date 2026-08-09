@@ -1,0 +1,23 @@
+info:
+  name: process_logs
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: "{{host}}/process-batch"
+  body:
+    type: multipart-form
+    data:
+      - name: file
+        type: file
+        value:
+          - C:\Users\Sebkewmeszke\Desktop\Projekty\LogAssistant\mock_network_logs.log
+        contentType: text/plain; charset=utf-8
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

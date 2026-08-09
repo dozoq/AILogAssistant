@@ -1,0 +1,18 @@
+info:
+  name: alert
+  type: websocket
+  seq: 3
+
+websocket:
+  url: ws://127.0.0.1:8000/ws/alerts
+  message:
+    - title: message 1
+      selected: false
+      message:
+        type: json
+        data: ""
+  auth: inherit
+
+settings:
+  timeout: 0
+  keepAliveInterval: 0

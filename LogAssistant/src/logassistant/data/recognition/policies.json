@@ -1,0 +1,38 @@
+{
+  "rules": [
+    {
+      "name": "SQL Injection Detection",
+      "pattern": "(UNION\\s+SELECT|AND\\s+1=1|select\\+from)",
+      "target_field": "url",
+      "on_success_score": 100,
+      "on_reject_score": 100,
+      "type": "signature"
+    },
+    {
+      "name": "Local File Inclusion Attempt",
+      "pattern": "(/etc/passwd|win\\.ini|\\.\\./\\.\\.)",
+      "target_field": "url",
+      "on_success_score": 100,
+      "on_reject_score": 30,
+      "type": "signature"
+    },
+    {
+      "name": "WordPress Brute Force",
+      "pattern": "wp-login\\.php",
+      "target_field": "url",
+      "on_success_score": 150,
+      "on_reject_score": 50,
+      "type": "volumetric",
+      "volumetric_threshold": 5
+    },
+    {
+      "name": "API Brute Force Emulation",
+      "pattern": "/api/v1/auth/login",
+      "target_field": "url",
+      "on_success_score": 10,
+      "on_reject_score": 25,
+      "type": "volumetric",
+      "volumetric_threshold": 3
+    }
+  ]
+}

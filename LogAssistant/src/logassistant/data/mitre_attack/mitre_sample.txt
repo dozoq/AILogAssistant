@@ -1,0 +1,15 @@
+MITRE ATT&CK Technique: T1190 - Exploit Public-Facing Application (SQL Injection)
+Threat Description: Attackers try to send malicious SQL statements to an application, tricking the database into executing unintended commands and leaking data.
+Mitigation Action: Deploy a Web Application Firewall (WAF). Use parameterized queries and prepared statements in code. Block the attacking IP address immediately using firewall commands like: iptables -A INPUT -s [IP] -j DROP.
+
+---
+
+MITRE ATT&CK Technique: T1110 - Brute Force (Credential Guessing)
+Threat Description: Attackers use automated tools to repeatedly guess passwords on login endpoints like /wp-login.php or SSH ports to gain unauthorized access.
+Mitigation Action: Enable strict account lockout policies (lock after 5 failed attempts). Implement a rate-limiting tool like Fail2Ban. Immediately block the source IP address on the host level using: iptables -A INPUT -s [IP] -j DROP.
+
+---
+
+MITRE ATT&CK Technique: T1068 - Exploitation for Privilege Escalation (Local File Inclusion)
+Threat Description: Attackers exploit input validation vulnerabilities to read sensitive files on the server, such as /etc/passwd or application source code.
+Mitigation Action: Sanitize all file path inputs. Restrict read permissions for the web application user. Isolate the environment using Docker containers.

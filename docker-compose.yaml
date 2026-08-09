@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: ./LogAssistantFrontend
+      dockerfile: dockerfile
+    ports:
+      - "8080:8501"
+    depends_on:
+      - backend
+    environment:
+      - BACKEND_URL=http://backend:8000/process-batch
+      - BACKEND_WS=ws://backend:8000/ws/alerts
+    networks:
+      - logassistantnet
+  backend:
+    build:
+      context: ./LogAssistant
+      dockerfile: dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - QDRANT_URL=http://qdrant:6333
+    depends_on:
+      - qdrant
+    volumes:
+      - ./LogAssistant:/app
+      - /app/.venv
+    networks:
+      - logassistantnet
+  qdrant:
+    image: qdrant/qdrant:latest
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - qdrant_data:/qdrant/storage
+    networks:
+      - logassistantnet
+
+volumes:
+  qdrant_data:
+networks:
+  logassistantnet:
+    driver: bridge

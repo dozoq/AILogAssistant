@@ -1,0 +1,3 @@
+from logassistant.services.file_handler import file_handler as FileHandler
+from logassistant.services.event_dispatcher import event_dispatcher as EventDispatcher
+from logassistant.services.connection_manager import connection_manager as ConnectionManager

@@ -1,0 +1,1 @@
+from logassistantfrontend.services.network_manager import network_manager as NetworkManager
