@@ -14,7 +14,7 @@ class LogAssistantApp:
 
         if "history" not in st.session_state:
             st.session_state.history = []
-        
+
 
     def run(self) -> None:
         st.title("Log Assistant")

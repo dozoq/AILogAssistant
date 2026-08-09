@@ -25,9 +25,9 @@ services:
       - QDRANT_URL=http://qdrant:6333
     depends_on:
       - qdrant
-    volumes:
-      - ./LogAssistant:/app
-      - /app/.venv
+    # volumes:
+    #   - ./LogAssistant:/app
+    #   - /app/.venv
     networks:
       - logassistantnet
   qdrant:

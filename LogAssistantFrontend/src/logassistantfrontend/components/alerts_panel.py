@@ -28,4 +28,4 @@ class AlertsPanelComponent:
                     st.code(report.mitigation_plan, language="bash")
                 st.divider()
                 st.caption(f"**Raw log line:** `{alert.raw_details}`")
-                st.button("Resolve", idx, on_click=lambda _: alerts.remove(alert)  )
+                st.button("Resolve", idx, on_click=lambda: alerts.remove(alert), type="tertiary", use_container_width=True  )
