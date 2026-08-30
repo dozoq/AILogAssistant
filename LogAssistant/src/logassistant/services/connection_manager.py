@@ -1,14 +1,13 @@
-from fastapi import WebSocket, WebSocketDisconnect
+from fastapi import WebSocket
+
 
 class ConnectionManager:
     def __init__(self):
         self.active_connections: list[WebSocket] = []
 
     async def connect(self, websocket: WebSocket):
-        print("Attempting to establish a new WebSocket connection...")
         await websocket.accept()
         self.active_connections.append(websocket)
-        print(f"New connection established. Total connections: {len(self.active_connections)}")
 
     def disconnect(self, websocket: WebSocket):
         self.active_connections.remove(websocket)
@@ -17,7 +16,15 @@ class ConnectionManager:
         await websocket.send_text(message)
 
     async def broadcast(self, message: str):
+        dead_connections = []
         for connection in self.active_connections:
-            await connection.send_text(message)
+            try:
+                await connection.send_text(message)
+            except Exception:
+                dead_connections.append(connection)
+
+        for connection in dead_connections:
+            self.active_connections.remove(connection)
+
 
 connection_manager = ConnectionManager()

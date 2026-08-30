@@ -28,7 +28,7 @@ with open(OUTPUT_FILE, "w") as f:
             f.write(generate_log_line(BRUTE_FORCE_ATTACKER_IP, "POST", "/wp-login.php", 401, 234))
         # Wstrzykiwanie ataku SQL Injection
         elif i == 7500:
-            f.write(generate_log_line(SQL_INJECTION_ATTACKER_IP, "GET", "/api/users?id=1+AND+1=1 UNION SELECT null,username,password+FROM+users", 200, 1045))
+            f.write(generate_log_line(SQL_INJECTION_ATTACKER_IP, "GET", "/api/users?id=1+union+select+from+users", 200, 1045))
         # Standardowy, bezpieczny ruch sieciowy
         else:
             ip = random.choice(IP_POOL)

@@ -1,9 +1,9 @@
 from logassistant.services import FileHandler
 from qdrant_client import QdrantClient
 from qdrant_client.models import Distance, VectorParams
-from langchain_google_genai.embeddings import GoogleGenerativeAIEmbeddings
 from langchain_qdrant import QdrantVectorStore
 from langchain_core.documents import Document
+from langchain_huggingface import HuggingFaceEmbeddings
 
 
 
@@ -15,11 +15,13 @@ async def auto_seed_if_needed(client: QdrantClient, collection_name: str) -> boo
         return False
 
     documents = [Document(page_content=block) for block in blocks]
-    embeddings = GoogleGenerativeAIEmbeddings(model="gemini-embedding-2-preview")
+    embeddings  = HuggingFaceEmbeddings(
+        model_name="BAAI/bge-small-en-v1.5"
+    )
 
     client.recreate_collection(
         collection_name=collection_name,
-        vectors_config=VectorParams(size=3072, distance=Distance.COSINE),
+        vectors_config=VectorParams(size=384, distance=Distance.COSINE),
     )
 
     qdrant = QdrantVectorStore(client=client, collection_name=collection_name, embeddings=embeddings)

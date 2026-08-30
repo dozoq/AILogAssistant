@@ -1,7 +1,14 @@
-from pydantic import BaseModel, Field
+from sqlalchemy import String, Text
+from sqlalchemy.orm import Mapped, mapped_column
 
-class ThreatReport(BaseModel):
-    threat_type: str = Field(..., description="Type of security threat")
-    severity: str = Field(..., description="Severity level of the threat (LOW/MEDIUM/HIGH/CRITICAL)")
-    mitigation_plan: str = Field(..., description="Steps to mitigate the threat")
-    recommendations: str = Field(..., description="Additional recommendations for improving security")
+from logassistant.core.database import Base
+
+
+class ThreatReport(Base):
+    __tablename__ = "threat_reports"
+
+    id: Mapped[int] = mapped_column(primary_key=True, index=True)
+    threat_type: Mapped[str] = mapped_column(String(255))
+    severity: Mapped[str] = mapped_column(String(255))
+    mitigation_plan: Mapped[str] = mapped_column(Text)
+    recommendations: Mapped[str] = mapped_column(Text)

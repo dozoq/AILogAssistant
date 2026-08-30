@@ -5,7 +5,7 @@ info:
 
 http:
   method: POST
-  url: "{{host}}/process-batch"
+  url: "{{host}}/threat-raports/process-batch"
   body:
     type: multipart-form
     data:
@@ -14,7 +14,9 @@ http:
         value:
           - C:\Users\Sebkewmeszke\Desktop\Projekty\LogAssistant\mock_network_logs.log
         contentType: text/plain; charset=utf-8
-  auth: inherit
+  auth:
+    type: bearer
+    token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJsb2dhc3Npc3RhbnQtYmFja2VuZCIsInN1YiI6ImxvZ2Fzc2lzdGFudC1mcm9udGVuZCIsInNjb3BlIjoidHJ1c3RlZF9jbGllbnQiLCJleHAiOjE3ODgxMjIwMDR9.KNxYm5bsd-WDy5RwMLVbwty2A4gI7Cr9eduC0NjqQWU
 
 settings:
   encodeUrl: true

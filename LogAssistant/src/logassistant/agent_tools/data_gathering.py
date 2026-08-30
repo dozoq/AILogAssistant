@@ -1,5 +1,6 @@
 from langchain_core.tools import tool
 
+
 @tool
 def get_ip_activity_history(ip: str) -> list[str]:
     """query the activity history of a given IP address from the global log cache"""
